@@ -1,5 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-
+import { Form, useNavigate } from 'react-router-dom';
 import styles from './EventForm.module.css';
 
 const EventForm = ({ method, event }) => {
@@ -10,22 +9,45 @@ const EventForm = ({ method, event }) => {
   };
 
   return (
-    <form className={styles.form}>
+    <Form method='POST' className={styles.form}>
       <p>
         <label htmlFor='title'>Title</label>
-        <input id='title' type='text' name='title' required />
+        <input
+          id='title'
+          type='text'
+          name='title'
+          defaultValue={event && event.title}
+          required
+        />
       </p>
       <p>
         <label htmlFor='image'>Image</label>
-        <input id='image' type='url' name='image' required />
+        <input
+          id='image'
+          type='url'
+          name='image'
+          defaultValue={event && event.image}
+          required
+        />
       </p>
       <p>
         <label htmlFor='date'>Date</label>
-        <input id='date' type='date' name='date' required />
+        <input
+          id='date'
+          type='date'
+          name='date'
+          defaultValue={event && event.date}
+          required
+        />
       </p>
       <p>
         <label htmlFor='description'>Description</label>
-        <textarea id='description' name='description' rows='5' required />
+        <textarea
+          id='description'
+          name='description'
+          rows='5'
+          defaultValue={event && event.description}
+        />
       </p>
       <div className={styles.actions}>
         <button type='button' onClick={cancelHandler}>
@@ -33,7 +55,7 @@ const EventForm = ({ method, event }) => {
         </button>
         <button>Save</button>
       </div>
-    </form>
+    </Form>
   );
 };
 

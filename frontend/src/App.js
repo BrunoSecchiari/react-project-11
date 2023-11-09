@@ -6,8 +6,8 @@ import ErrorPage from './pages/Error';
 
 import EventLayout from './pages/EventLayout';
 import EventsPage, { eventsLoader } from './pages/Events';
-import EventDetailPage from './pages/EventDetail';
-import NewEventPage from './pages/NewEvent';
+import EventDetailPage, { eventDetailLoader } from './pages/EventDetail';
+import NewEventPage, { newEventAction } from './pages/NewEvent';
 import EditEventPage from './pages/EditEvent';
 
 const router = createBrowserRouter([
@@ -26,17 +26,27 @@ const router = createBrowserRouter([
             element: <EventsPage />,
             loader: eventsLoader,
           },
-          { path: ':id', element: <EventDetailPage /> },
-          { path: ':id/edit', element: <EditEventPage /> },
-          { path: 'new', element: <NewEventPage /> },
+          {
+            path: ':id',
+            id: 'event-detail',
+            loader: eventDetailLoader,
+            children: [
+              {
+                index: true,
+                element: <EventDetailPage />,
+              },
+              { path: 'edit', element: <EditEventPage /> },
+            ],
+          },
+          { path: 'new', element: <NewEventPage />, action: newEventAction },
         ],
       },
     ],
   },
 ]);
 
-function App() {
+const App = () => {
   return <RouterProvider router={router} />;
-}
+};
 
 export default App;
