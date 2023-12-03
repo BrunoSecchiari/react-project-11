@@ -1,5 +1,6 @@
 import {
   json,
+  redirect,
   useRouteLoaderData /* , useLoaderData, useParams */,
 } from 'react-router-dom';
 import EventItem from '../components/EventItem';
@@ -25,5 +26,17 @@ export const eventDetailLoader = async ({ request, params }) => {
     throw json({ message: 'HTTP 500' }, { status: 500 });
   } else {
     return response;
+  }
+};
+
+export const deleteEventAction = async ({ request, params }) => {
+  const response = await fetch(`http://localhost:8080/events/${params.id}`, {
+    method: request.method,
+  });
+
+  if (!response.ok) {
+    throw json({ message: 'HTTP 500' }, { status: 500 });
+  } else {
+    return redirect('/events');
   }
 };
